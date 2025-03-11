@@ -29,4 +29,3 @@
     5. Tydenni zprava *(mesicni? denni?)*
         - Za co bylo nejvice utraceno tento *{mesic | tyden}* treba
     6. Save & exit
-    :q
