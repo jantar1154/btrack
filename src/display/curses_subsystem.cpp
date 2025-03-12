@@ -1,22 +1,25 @@
 #include "curses_subsystem.h"
 #include "screen.h"
-#include <ncurses.h>
 
 namespace display {
 
-CursesSubsystem::CursesSubsystem() {
+CursesSubsystem::CursesSubsystem():
+    loading_screen(Screen::get_win_center(3, 21), "loading", "loaging program")
+{
     initscr();
     noecho();
     raw();
     curs_set(0);
 
-    const PosSize pos { Screen::get_win_center(3, 21) };
-    const Screen loading(pos, "loading", "loading program");
-    loading.render_text_center();
+    loading_screen.render_text_center();
 }
 
 CursesSubsystem::~CursesSubsystem() {
     endwin();
+}
+
+void CursesSubsystem::hide_loading() const {
+    loading_screen.hide();
 }
 
 char CursesSubsystem::wait_for_keypress() const {

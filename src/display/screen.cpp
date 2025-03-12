@@ -1,13 +1,19 @@
 #include "screen.h"
+#include <ncurses.h>
 
 using namespace display;
 /*     PRIVATE     */
-void Screen::render_text(const Vec2D<int> &xy) const {
-    wclear(window);
+void Screen::render_text(const Vec2D<int> &xy, const std::string &text) const {
     wmove(window, xy.y, xy.x);
-    wprintw(window, "%s\n", text_content.c_str());
+    wprintw(window, "%s\n", text.c_str());
     box(window, 0, 0);
     wrefresh(window);
+}
+
+void Screen::render_name() const {
+    const int c_x = getmaxx(window) / 2 - (name.length() / 2);
+    const Vec2D<int> pos = { c_x, 1 };
+    render_text(pos, name);
 }
 
 
@@ -29,16 +35,25 @@ Screen::~Screen() {
 }
 
 void Screen::render_text() const {
-    render_text({1, 1});
+    wclear(window);
+    render_name();
+    render_text({1, 2}, text_content);
 }
 
 void Screen::render_text_center() const {
+    wclear(window);
     const int c_x = getmaxx(window) / 2 - (text_content.length() / 2);
-    render_text({c_x, 1});
+    render_name();
+    render_text({c_x, 2}, text_content);
 }
 
 void Screen::set_text_content(const std::string &content) {
     text_content = content;
+}
+
+void Screen::hide() const {
+    wclear(window);
+    wrefresh(window);
 }
 
 PosSize Screen::get_win_center(WINDOW *win, int height, int width) {
