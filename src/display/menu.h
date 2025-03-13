@@ -18,7 +18,7 @@ protected:
     std::vector<MenuItem> items;
 
     // Whether the entire menu is focused
-    bool focused = false;
+    bool focused = true;
 
     // Index of focused item in menu
     size_t focused_item = 0;

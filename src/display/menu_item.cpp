@@ -4,7 +4,9 @@
 using namespace display;
 MenuItem::MenuItem(const std::string &text, int width, int index) {
     this->text = text;
-    this->window = newwin(3, width, index + 2, 1);
+    // Height of three so the item can be boxed
+    const int y = (index * 3) + 3;
+    this->window = newwin(3, width, y, 1);
     refresh();
     wrefresh(window);
 }
