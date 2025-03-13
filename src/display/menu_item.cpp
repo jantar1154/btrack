@@ -11,10 +11,12 @@ MenuItem::MenuItem(const std::string &text, int width, int index) {
     
 void MenuItem::focus()  {
     this->focused = true;
+    render();
 }   
    
 void MenuItem::unfocus() {
     this->focused = false;
+    render();
 } 
 
 void MenuItem::render() const {

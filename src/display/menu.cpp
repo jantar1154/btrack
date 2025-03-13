@@ -17,21 +17,30 @@ Menu::~Menu() {
 }
 void Menu::focus() {
     this->focused = true;
+    render_items();
 }
 
 void Menu::unfocus() {
     this->focused = false;
+    render_items();
 }
 
 void Menu::move_cursor(MENU_MOVE_DIRECTION dir) {
+    // Good lord
+    // TODO: make readable
+    if (!focused) return;
     if ((dir == UP? focused_item : items.size() - 1) <= (dir == UP? 0 : focused_item)) return;
+    // unfocus old item
     items.at(focused_item).unfocus();
     this->focused_item += (dir == UP ? -1 : 1);
+    // Focus new item
     items.at(focused_item).focus();
+    // Update the A_STANDOUT
     render_items();
 }
 
 void Menu::add_item(const std::string &item) {
+    // Index decides which `y` coord will the item be at
     const int index = items.size();
     items.emplace_back(MenuItem(item, getmaxx(window) - 2, index));
     if (index == 0) items[0].focus();
