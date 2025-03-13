@@ -25,8 +25,8 @@ public:
     Screen(const PosSize &pos, const std::string &name);
     ~Screen();
 
-    virtual void render_text() const;
-    virtual void render_text_center() const;
+    virtual void render() const;
+    virtual void render_center() const;
     void set_text_content(const std::string &content);
 
     void hide() const;

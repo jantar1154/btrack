@@ -10,8 +10,9 @@ int main() {
     // Go to menu
     const display::PosSize pos {30, 30, 0, 0};
     Menu main_menu(pos, "main menu");
-    
-    main_menu.render_text();
+    main_menu.add_item("abc 1");
+    main_menu.add_item("acb 2");
+    main_menu.render();
 
     s.wait_for_keypress();
 

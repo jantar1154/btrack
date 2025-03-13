@@ -34,13 +34,13 @@ Screen::~Screen() {
     delwin(window);
 }
 
-void Screen::render_text() const {
+void Screen::render() const {
     wclear(window);
     render_name();
     render_text({1, 2}, text_content);
 }
 
-void Screen::render_text_center() const {
+void Screen::render_center() const {
     wclear(window);
     const int c_x = getmaxx(window) / 2 - (text_content.length() / 2);
     render_name();

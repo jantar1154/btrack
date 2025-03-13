@@ -11,7 +11,7 @@ CursesSubsystem::CursesSubsystem():
     raw();
     curs_set(0);
 
-    loading_screen.render_text_center();
+    loading_screen.render_center();
 }
 
 CursesSubsystem::~CursesSubsystem() {
