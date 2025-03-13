@@ -14,10 +14,16 @@ enum MENU_MOVE_DIRECTION {
 
 class Menu : protected Screen {
 protected:
+    // Vector of items in the menu
     std::vector<MenuItem> items;
-    bool focused = false;
+
+    // Whether the entire menu is focused
+    bool focused = true;
+
+    // Index of focused item in menu
     size_t focused_item = 0;
 
+    // Renders menu items only
     void render_items() const;
 
 public:
@@ -25,13 +31,18 @@ public:
     Menu(const PosSize &pos, const std::string &name);
     ~Menu();
     
+    // Renders itself and all it's items
     void render() const;
 
+    // Focuses this screen
     void focus();
+    // Unfocuses this screen
     void unfocus();
 
+    // Moves cursor to select a different item
     void move_cursor(MENU_MOVE_DIRECTION dir);
 
+    // Adds a new item into the menu
     void add_item(const std::string &item);
 };
 
