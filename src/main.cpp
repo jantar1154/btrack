@@ -16,5 +16,20 @@ int main() {
 
     s.wait_for_keypress();
 
+    // Handle keys
+    char key;
+    while ((key = s.wait_for_keypress())) {
+        switch (key) {
+            case 'q':
+                return 0;
+            case 'j':
+                main_menu.move_cursor(display::DOWN);
+                break;
+            case 'k':
+                main_menu.move_cursor(display::UP);
+                break;
+        }
+    }
+
     return 0;
 }

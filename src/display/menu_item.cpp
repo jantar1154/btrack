@@ -8,9 +8,21 @@ MenuItem::MenuItem(const std::string &text, int width, int index) {
     refresh();
     wrefresh(window);
 }
+    
+void MenuItem::focus()  {
+    this->focused = true;
+}   
+   
+void MenuItem::unfocus() {
+    this->focused = false;
+} 
 
 void MenuItem::render() const {
+    if (true == focused) {
+        wattron(window, A_STANDOUT);
+    }
     wclear(window);
     wprintw(window, "%s", this->text.c_str());
     wrefresh(window);
+    wattroff(window, A_STANDOUT);
 }
