@@ -9,7 +9,9 @@ int main() {
     CursesSubsystem s;
 
     // Go to menu
+    s.wait_for_keypress();
     const display::PosSize pos {30, 30, 0, 0};
+    s.hide_loading();
     Menu main_menu(pos, "main menu");
     main_menu.add_item("abc 1");
     main_menu.add_item("acb 2");
