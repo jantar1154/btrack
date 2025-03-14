@@ -3,6 +3,7 @@
 #include "display/screen.h"
 
 using display::CursesSubsystem, display::Menu;
+using display::MenuMoveDirection;
 
 int main() {
     CursesSubsystem s;
@@ -14,8 +15,6 @@ int main() {
     main_menu.add_item("acb 2");
     main_menu.render();
 
-    s.wait_for_keypress();
-
     // Handle keys
     char key;
     while ((key = s.wait_for_keypress())) {
@@ -23,10 +22,10 @@ int main() {
             case 'q':
                 return 0;
             case 'j':
-                main_menu.move_cursor(display::DOWN);
+                main_menu.move_cursor(MenuMoveDirection::DOWN);
                 break;
             case 'k':
-                main_menu.move_cursor(display::UP);
+                main_menu.move_cursor(MenuMoveDirection::UP);
                 break;
         }
     }

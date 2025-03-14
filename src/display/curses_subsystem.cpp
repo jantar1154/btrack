@@ -4,8 +4,10 @@
 namespace display {
 
 CursesSubsystem::CursesSubsystem():
-    loading_screen(Screen::get_win_center(3, 21), "loading", "loaging program")
-{
+    loading_screen(
+        Screen::get_win_center(3, 21),
+        "loading",
+        "loaging program") {
     initscr();
     noecho();
     raw();

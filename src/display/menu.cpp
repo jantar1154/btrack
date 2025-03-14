@@ -25,14 +25,14 @@ void Menu::unfocus() {
     render_items();
 }
 
-void Menu::move_cursor(MENU_MOVE_DIRECTION dir) {
+void Menu::move_cursor(MenuMoveDirection dir) {
+    if (!focused) return;
     // Good lord
     // TODO: make readable
-    if (!focused) return;
-    if ((dir == UP? focused_item : items.size() - 1) <= (dir == UP? 0 : focused_item)) return;
+    if ((dir == MenuMoveDirection::UP? focused_item : items.size() - 1) <= (dir == MenuMoveDirection::UP? 0 : focused_item)) return;
     // unfocus old item
     items.at(focused_item).unfocus();
-    this->focused_item += (dir == UP ? -1 : 1);
+    this->focused_item += (dir == MenuMoveDirection::UP ? -1 : 1);
     // Focus new item
     items.at(focused_item).focus();
     // Update the A_STANDOUT

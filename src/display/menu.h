@@ -7,7 +7,7 @@
 
 namespace display {
 
-enum MENU_MOVE_DIRECTION {
+enum class MenuMoveDirection {
     UP,
     DOWN,
 };
@@ -40,7 +40,7 @@ public:
     void unfocus();
 
     // Moves cursor to select a different item
-    void move_cursor(MENU_MOVE_DIRECTION dir);
+    void move_cursor(MenuMoveDirection dir);
 
     // Adds a new item into the menu
     void add_item(const std::string &item);
