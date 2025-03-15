@@ -2,6 +2,7 @@
 #include "menu_item.h"
 #include "screen.h"
 #include "menu_item.h"
+#include <functional>
 #include <vector>
 #include <ncurses.h>
 
@@ -42,8 +43,11 @@ public:
     // Moves cursor to select a different item
     void move_cursor(MenuMoveDirection dir);
 
+    // Enters currently selected item (runs its function)
+    std::function<size_t ()> enter() const;
+
     // Adds a new item into the menu
-    void add_item(const std::string &item);
+    void add_item(const std::string &text, std::function<size_t ()> function);
 };
 
 }

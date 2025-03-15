@@ -13,7 +13,9 @@ void Screen::render_text(const Vec2D<int> &xy, const std::string &text) const {
 void Screen::render_name() const {
     const int c_x = getmaxx(window) / 2 - (name.length() / 2);
     const Vec2D<int> pos = { c_x, 1 };
+    wattron(window, A_BOLD);
     render_text(pos, name);
+    wattroff(window, A_BOLD);
 }
 
 

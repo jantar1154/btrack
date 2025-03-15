@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "menu_item.h"
+#include <functional>
 #include <ncurses.h>
 #include <string>
 
@@ -15,6 +16,7 @@ Menu::Menu(const PosSize& pos, const std::string &name):
 Menu::~Menu() {
     delwin(window);
 }
+
 void Menu::focus() {
     this->focused = true;
     render_items();
@@ -28,21 +30,25 @@ void Menu::unfocus() {
 void Menu::move_cursor(MenuMoveDirection dir) {
     if (!focused) return;
     // Good lord
-    // TODO: make readable
+    // TODO: make readable, not urgent
     if ((dir == MenuMoveDirection::UP? focused_item : items.size() - 1) <= (dir == MenuMoveDirection::UP? 0 : focused_item)) return;
     // unfocus old item
     items.at(focused_item).unfocus();
     this->focused_item += (dir == MenuMoveDirection::UP ? -1 : 1);
     // Focus new item
     items.at(focused_item).focus();
-    // Update the A_STANDOUT
-    render_items();
 }
 
-void Menu::add_item(const std::string &item) {
+std::function<size_t ()> Menu::enter() const {
+    const MenuItem &item = items[focused_item];
+    return item.on_enter();
+}
+
+
+void Menu::add_item(const std::string &text, std::function<size_t ()> function) {
     // Index decides which `y` coord will the item be at
     const int index = items.size();
-    items.emplace_back(MenuItem(item, getmaxx(window) - 2, index));
+    items.emplace_back(MenuItem(function, text, getmaxx(window) - 2, index));
     if (index == 0) items[0].focus();
 }
 
@@ -58,5 +64,4 @@ void Menu::render() const {
 
     // render items
     render_items();
-    box(window, 0, 0);
 }
