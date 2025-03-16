@@ -1,6 +1,7 @@
 #include "display/curses_subsystem.h"
 #include "display/menu.h"
 #include "display/screen.h"
+#include "app.h"
 
 using display::CursesSubsystem, display::Menu;
 using display::MenuMoveDirection;
@@ -12,7 +13,7 @@ int main() {
     constexpr display::PosSize pos {30, 30, 0, 0};
     Menu main_menu(pos, "Main menu");
 
-    main_menu.add_item("Show spending", []() -> size_t { return 1; });
+    main_menu.add_item("Show spending", []() -> size_t { show_spending(); return 1; });
     main_menu.add_item("Add a record", []() -> size_t {return 1;});
     main_menu.add_item("Edit records", []() -> size_t { return 1; });
     main_menu.add_item("Visualise spending", []() -> size_t { return 1; });
