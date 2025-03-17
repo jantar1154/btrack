@@ -17,6 +17,7 @@ protected:
     WINDOW *window;
     std::string name;
     std::string text_content;
+    bool focused;
     void render_name() const;
     void render_text(const Vec2D<int> &xy, const std::string &text) const;
 
@@ -30,6 +31,9 @@ public:
     void set_text_content(const std::string &content);
 
     void hide() const;
+
+    virtual void focus();
+    virtual void unfocus();
 
     static PosSize get_win_center(WINDOW *win, int height, int width);
     static PosSize get_win_center(int height, int width);

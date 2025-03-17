@@ -1,5 +1,6 @@
 #include "curses_subsystem.h"
 #include "screen.h"
+#include <ncurses.h>
 
 namespace display {
 
@@ -16,6 +17,10 @@ CursesSubsystem::~CursesSubsystem() {
 
 char CursesSubsystem::wait_for_keypress() const {
     return getch();
+}
+
+void CursesSubsystem::clear() const {
+    wclear(stdscr);
 }
 
 }

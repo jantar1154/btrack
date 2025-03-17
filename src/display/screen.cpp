@@ -57,6 +57,13 @@ void Screen::hide() const {
     wclear(window);
     wrefresh(window);
 }
+void Screen::focus() {
+    this->focused = true;
+}
+
+void Screen::unfocus() {
+    this->focused = false;
+}
 
 PosSize Screen::get_win_center(WINDOW *win, int height, int width) {
     const int row = (getmaxy(win) / 2) - (height / 2);

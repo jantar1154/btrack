@@ -1,3 +1,7 @@
 #pragma once
 
-void show_spending();
+#include "display/curses_subsystem.h"
+
+using display::CursesSubsystem;
+
+void show_spending(CursesSubsystem s);

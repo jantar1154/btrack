@@ -13,13 +13,13 @@ enum class MenuMoveDirection {
     DOWN,
 };
 
-class Menu : protected Screen {
+class Menu : public Screen {
 protected:
     // Vector of items in the menu
     std::vector<MenuItem> items;
 
     // Whether the entire menu is focused
-    bool focused = true;
+    // bool focused = true;
 
     // Index of focused item in menu
     size_t focused_item = 0;
@@ -31,7 +31,7 @@ public:
     Menu(const PosSize &pos, const std::string &name, const std::string &text_content);
     Menu(const PosSize &pos, const std::string &name);
     ~Menu();
-    
+
     // Renders itself and all it's items
     void render() const;
 

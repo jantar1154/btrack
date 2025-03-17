@@ -13,6 +13,8 @@ public:
 
     // Not static because we have to make sure everything is set up
     char wait_for_keypress() const;
+
+    void clear() const;
 };
 
 }
