@@ -4,4 +4,4 @@
 
 using display::CursesSubsystem;
 
-void show_spending(CursesSubsystem s);
+void show_spending(CursesSubsystem);

@@ -7,6 +7,6 @@ include_directories(${CURSES_INCLUDE_DIR})
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} -fsanitize=address -Wall -Werror -pedantic -O0 -g")
 
-add_executable(btrack src/main.cpp src/app.cpp src/display/curses_subsystem.cpp src/display/screen.cpp src/display/menu.cpp src/display/menu_item.cpp)
+add_executable(btrack src/main.cpp src/util.cpp src/app.cpp src/display/curses_subsystem.cpp src/display/screen.cpp src/display/menu.cpp src/display/menu_item.cpp src/spending_data.cpp)
 
 target_link_libraries(btrack ${CURSES_LIBRARIES})

@@ -1,5 +1,4 @@
 #include "curses_subsystem.h"
-#include "screen.h"
 #include <ncurses.h>
 
 namespace display {

@@ -30,7 +30,7 @@ public:
     virtual void render_center() const;
     void set_text_content(const std::string &content);
 
-    void hide() const;
+    void clear() const;
 
     virtual void focus();
     virtual void unfocus();

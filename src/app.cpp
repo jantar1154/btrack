@@ -9,7 +9,7 @@ void show_spending(CursesSubsystem s) {
     int maxx, maxy;
     getmaxyx(stdscr, maxx, maxy);
     const PosSize pos {maxx - 1, maxy - 1, 1, 1};
-    const Screen scr(pos, "Spending");
+    const Screen scr {pos, "Spending"};
     scr.render();
 
     char key;
@@ -19,4 +19,5 @@ void show_spending(CursesSubsystem s) {
                 return;
         }
     }
+    scr.clear();
 }

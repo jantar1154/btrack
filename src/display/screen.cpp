@@ -53,10 +53,12 @@ void Screen::set_text_content(const std::string &content) {
     text_content = content;
 }
 
-void Screen::hide() const {
+void Screen::clear() const {
     wclear(window);
+    render();
     wrefresh(window);
 }
+
 void Screen::focus() {
     this->focused = true;
 }

@@ -2,18 +2,20 @@
 #include "display/menu.h"
 #include "display/screen.h"
 #include "app.h"
+#include "spending_data.h"
 
 using display::CursesSubsystem, display::Screen, display::Menu;
 using display::MenuMoveDirection;
 
 int main() {
+    SpendingData sd {"data.sql"};
     CursesSubsystem s;
 
     // Go to menu
     constexpr display::PosSize pos {30, 30, 0, 0};
     Menu main_menu(pos, "Main menu");
 
-    Screen *active_screen = static_cast<Screen*>(&main_menu);
+    // Screen *active_screen = static_cast<Screen*>(&main_menu);
 
     main_menu.add_item("Show spending", [s]() -> size_t { show_spending(s); return 1; });
     main_menu.add_item("Add a record", [s]() -> size_t {return 1;});
@@ -40,11 +42,9 @@ int main() {
             // TODO: figure out how
             // case 'enter':
                 const size_t result = main_menu.enter()();
-                if (result == 1) active_screen->unfocus();
                 if (result == 0) exit = true;
                 break;
         }
-        main_menu.focus();
         if (exit) break;
     }
 
