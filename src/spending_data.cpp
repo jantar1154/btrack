@@ -1,24 +1,20 @@
 #include "spending_data.h"
 #include "util.h"
+#include "sql.h"
 
-#include <iostream>
+using std::string;
 
-Expense::Expense(int32_t amount):
-    amount(amount) { }
+Expense::Expense(int32_t amount, const string &name, const string &description):
+    amount(amount),
+    name(name),
+    description(description) { }
 
-int32_t Expense::get_amount() const {
-    return amount;
-}
+int32_t Expense::get_amount() const { return amount; }
+string Expense::get_name() const { return name; }
+string Expense::get_description() const { return description; }
 
 SpendingData::SpendingData(const std::string &filename) {
-    for (size_t i = 0; i < 1000; ++i) {
-        expenses.add(Expense(100 * i));
-    }
-
-    std::cout << "at 100: " << expenses.get(100).value().get_amount() << std::endl;
-    expenses.remove(100);
-    std::cout << "at 100: " << expenses.get(100).value().get_amount() << std::endl;
-
+    Sql sql(filename);
 }
 
 SpendingData::~SpendingData() {
