@@ -4,7 +4,7 @@
 #include "app.h"
 #include "spending_data.h"
 
-using display::CursesSubsystem, display::Screen, display::Menu;
+using display::CursesSubsystem, display::Menu;
 using display::MenuMoveDirection;
 
 int main() {

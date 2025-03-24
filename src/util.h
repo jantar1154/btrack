@@ -25,7 +25,8 @@ public:
     Vector();
     ~Vector();
 
-    void add(T);
+    void add(const T&);
+    void add(T&&);
     std::optional<T> get(size_t) const;
     void remove(size_t);
 }; // Vector
@@ -34,22 +35,34 @@ template <typename T>
 Vector<T>::Vector() { items = allocator.allocate(max_size); }
 
 template <typename T>
-Vector<T>::~Vector() { allocator.deallocate(items, max_size); }
+Vector<T>::~Vector() { if (items) allocator.deallocate(items, max_size); }
 
 template <typename T>
-void Vector<T>::add(T item) {
+void Vector<T>::add(const T &item) {
     if (size == max_size) {
-        // make array larger
-        T *tmp = allocator.allocate(size);
-        std::copy(items, items + size, tmp);
-
-        allocator.deallocate(items, size);
-
         max_size *= 2;
+        // make array larger
+        T *tmp = allocator.allocate(max_size);
+        if (items) {
+            std::copy(items, items + size, tmp);
+            allocator.deallocate(items, max_size); // Use max_size here
+        }
 
-        items = allocator.allocate(max_size);
-        std::copy(tmp, tmp + size, items);
-        allocator.deallocate(tmp, size);
+        items = tmp;
+    }
+    items[size++] = item;
+}
+
+template <typename T>
+void Vector<T>::add(T &&item) {
+    if (size == max_size) {
+        max_size *= 2;
+        // make array larger
+        T *tmp = allocator.allocate(max_size);
+        std::copy(items, items + size, tmp);
+        allocator.deallocate(items, max_size); // Use max_size here
+
+        items = tmp;
     }
     items[size++] = item;
 }
