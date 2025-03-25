@@ -24,18 +24,38 @@ class Vector {
 public:
     Vector();
     ~Vector();
+    Vector(const Vector &other);
+    Vector(Vector &&other);
 
     void add(const T&);
     void add(T&&);
     std::optional<T> get(size_t) const;
     void remove(size_t);
+
+    Vector operator = (const Vector &);
 }; // Vector
 
 template <typename T>
 Vector<T>::Vector() { items = allocator.allocate(max_size); }
 
 template <typename T>
-Vector<T>::~Vector() { if (items) allocator.deallocate(items, max_size); }
+Vector<T>::Vector(Vector &&other) {
+    allocator = other.allocator;
+    size = other.size;
+    max_size = other.max_size;
+    items = other.items;
+}
+
+template <typename T>
+Vector<T>::Vector(const Vector &other) {
+    allocator = other.allocator;
+    size = other.size;
+    max_size = other.max_size;
+    std::copy(other.items, other.items + size, items);
+}
+
+template <typename T>
+Vector<T>::~Vector() { allocator.deallocate(items, max_size); }
 
 template <typename T>
 void Vector<T>::add(const T &item) {
@@ -78,6 +98,19 @@ void Vector<T>::remove(size_t index) {
     if (index >= size) return;
     std::copy(items + index + 1, items + size, items + index);
     size --;
+}
+
+template <typename T>
+Vector<T> Vector<T>::operator = (const Vector &other) {
+    Vector<T> ret;
+
+    ret.allocator = other.allocator;
+    ret.size = other.size;
+    ret.max_size = other.max_size;
+
+    ret.items = allocator.allocate(ret.max_size);
+    std::copy(other.items, other.items + size, ret.items);
+    return ret;
 }
 
 } // namespace

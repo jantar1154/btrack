@@ -11,13 +11,12 @@ int main() {
     SpendingData sd {"data.sql"};
     CursesSubsystem s;
 
+
     // Go to menu
-    constexpr display::PosSize pos {30, 30, 0, 0};
+    const display::PosSize pos {30, 30, 0, 0};
     Menu main_menu(pos, "Main menu");
 
-    // Screen *active_screen = static_cast<Screen*>(&main_menu);
-
-    main_menu.add_item("Show spending", [s]() -> size_t { show_spending(s); return 1; });
+    main_menu.add_item("Show spending", [&s, &sd]() -> size_t { show_spending(s, sd); return 1; });
     main_menu.add_item("Add a record", [s]() -> size_t {return 1;});
     main_menu.add_item("Edit records", [s]() -> size_t { return 1; });
     main_menu.add_item("Visualise spending", [s]() -> size_t { return 1; });

@@ -1,7 +1,6 @@
 #include "spending_data.h"
 #include "util.h"
 #include "sql.h"
-#include <algorithm>
 
 using std::string;
 
@@ -28,7 +27,7 @@ string Expense::get_description() const { return description; }
 
 SpendingData::SpendingData(const std::string &filename) {
     Sql sql(filename);
-    expenses.add(Expense(100, "akrel", "barel"));
+    expenses = sql.get_all_expenses();
 }
 
 Expense Expense::operator = (const Expense &other) {

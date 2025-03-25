@@ -1,10 +1,11 @@
 #include "app.h"
 #include "display/screen.h"
+#include "spending_data.h"
 
 #include <ncurses.h>
 
 using display::Screen, display::PosSize;
-void show_spending(CursesSubsystem s) {
+void show_spending(CursesSubsystem &s, SpendingData &spending_data) {
     s.clear();
     int maxx, maxy;
     getmaxyx(stdscr, maxx, maxy);

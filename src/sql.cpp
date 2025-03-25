@@ -1,6 +1,6 @@
 #include "sql.h"
 #include "spending_data.h"
-#include <algorithm>
+#include "util.h"
 #include <cstring>
 #include <sqlite3.h>
 #include <iostream>
@@ -20,13 +20,28 @@ Sql::Sql(const std::string &filename) {
         std::cerr << "Error while creating table " << filename << std::endl;
         sqlite3_free(error_msg);
     }
-    
-    // exit(status);
-    insert_expense(Expense(100, "Karel 2", "123hioasdf"));
 }
 
-std::string Sql::get_all_expenses() {
-    return "";
+static int callback(void *exp, int argc, char **argv, char **colname) {
+    bt::Vector<Expense> *expenses = static_cast<bt::Vector<Expense>*>(exp);
+    // exit(69);
+    for (int i = 0; i < argc; i += 4) {
+        int32_t amount = static_cast<int32_t> (atoi(argv[i + 1]));
+        std::string name = argv[i + 2];
+        std::string description = argv[i + 3];
+        expenses->add(Expense{amount, name, description});
+    }
+    return SQLITE_OK;
+}
+
+bt::Vector<Expense> Sql::get_all_expenses() {
+    bt::Vector<Expense> expenses;
+    strcpy(sql_query, "SELECT * FROM Expenses;");
+    char *errmsg;
+
+    sqlite3_exec(sql, sql_query, callback, &expenses, &errmsg);
+
+    return expenses;
 }
 
 void Sql::insert_expense(const Expense &expense) {

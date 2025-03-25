@@ -1,5 +1,6 @@
 #pragma once
 #include "spending_data.h"
+#include "util.h"
 #include <sqlite3.h>
 #include <string>
 
@@ -12,7 +13,7 @@ private:
 public:
     Sql() = delete;
     Sql(const std::string &filename);
-    std::string get_all_expenses();
+    bt::Vector<Expense> get_all_expenses();
     void insert_expense(const Expense&);
     ~Sql();
 };
