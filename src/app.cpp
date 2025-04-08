@@ -17,8 +17,8 @@ void show_spending(CursesSubsystem &s, SpendingData &spending_data) {
     while ((key = s.wait_for_keypress())) {
         switch (key) {
             case 'q':
+                scr.clear();
                 return;
         }
     }
-    scr.clear();
 }

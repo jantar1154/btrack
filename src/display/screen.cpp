@@ -55,7 +55,6 @@ void Screen::set_text_content(const std::string &content) {
 
 void Screen::clear() const {
     wclear(window);
-    render();
     wrefresh(window);
 }
 

@@ -41,6 +41,8 @@ int main() {
             // TODO: figure out how
             // case 'enter':
                 const size_t result = main_menu.enter()();
+                main_menu.clear();
+                main_menu.render();
                 if (result == 0) exit = true;
                 break;
         }
