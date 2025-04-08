@@ -25,6 +25,9 @@ int32_t Expense::get_amount() const { return amount; }
 string Expense::get_name() const { return name; }
 string Expense::get_description() const { return description; }
 
+// TODO
+void SpendingData::save() const {}
+
 SpendingData::SpendingData(const std::string &filename) {
     Sql sql(filename);
     expenses = sql.get_all_expenses();

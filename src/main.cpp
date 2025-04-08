@@ -14,7 +14,7 @@ int main() {
 
     // Go to menu
     const display::PosSize pos {30, 30, 0, 0};
-    Menu main_menu(pos, "Main menu");
+    Menu main_menu { pos, "Main menu" };
 
     main_menu.add_item("Show spending", [&s, &sd]() -> size_t { show_spending(s, sd); return 1; });
     main_menu.add_item("Add a record", [s]() -> size_t {return 1;});
@@ -48,6 +48,8 @@ int main() {
         }
         if (exit) break;
     }
+
+    sd.save();
 
     return 0;
 }

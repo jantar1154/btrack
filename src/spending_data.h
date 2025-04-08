@@ -20,6 +20,7 @@ public:
     std::string get_name() const;
     std::string get_description() const;
 
+
     Expense operator = (const Expense &other);
     Expense operator = (Expense &&other);
 };
@@ -28,8 +29,12 @@ class SpendingData {
 protected:
     bt::Vector<Expense> expenses;
 
+
 public:
     SpendingData() = delete;
     SpendingData(const std::string &filename);
     ~SpendingData();
+
+    // TODO
+    void save() const;
 };
