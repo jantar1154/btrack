@@ -16,6 +16,7 @@ Sql::Sql(const std::string &filename) {
         ");");
     char *error_msg;
     status = sqlite3_exec(sql, sql_query, nullptr, 0, &error_msg);
+
     if (status != SQLITE_OK) {
         std::cerr << "Error while creating table " << filename << std::endl;
         sqlite3_free(error_msg);
@@ -39,12 +40,14 @@ bt::Vector<Expense> Sql::get_all_expenses() {
     strcpy(sql_query, "SELECT * FROM Expenses;");
     char *errmsg;
 
+    // Callback gets called for every row
     sqlite3_exec(sql, sql_query, callback, &expenses, &errmsg);
 
     return expenses;
 }
 
 void Sql::insert_expense(const Expense &expense) {
+    // TODO: more information on expenses
     strcpy(sql_query,
         "INSERT INTO Expenses"
         "(amount, name, description)"
@@ -61,17 +64,15 @@ void Sql::insert_expense(const Expense &expense) {
     const std::string name { expense.get_name() };
     const std::string description { expense.get_description() };
 
+    // Parameter binding
     sqlite3_bind_int(stmt, 1, expense.get_amount());
     sqlite3_bind_text(stmt, 2, name.c_str(), name_size, nullptr);
     sqlite3_bind_text(stmt, 3, description.c_str(), description_size, nullptr);
 
+    // Do every row
     while (SQLITE_OK == sqlite3_step(stmt)) { }
 
     sqlite3_finalize(stmt);
-
-    
-    // int status = sqlite3_exec(sql, sql_query, nullptr, 0, nullptr);
-    // exit(status);
 }
 
 Sql::~Sql() {

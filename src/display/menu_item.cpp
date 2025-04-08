@@ -26,6 +26,7 @@ std::function<size_t ()> MenuItem::on_enter() const {
 }
 
 void MenuItem::render() const {
+    // Highlight focused item
     if (true == focused) {
         wattron(window, A_STANDOUT);
     }

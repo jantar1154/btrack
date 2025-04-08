@@ -30,16 +30,12 @@ void SpendingData::save() const {}
 
 SpendingData::SpendingData(const std::string &filename) {
     Sql sql(filename);
+    // Populate expenses with SELECT
     expenses = sql.get_all_expenses();
 }
 
-Expense Expense::operator = (const Expense &other) {
-    return Expense { other };
-}
+Expense Expense::operator = (const Expense &other) { return Expense { other }; }
 
-Expense Expense::operator = (Expense &&other) {
-    return Expense { other };
-}
+Expense Expense::operator = (Expense &&other) { return Expense { other }; }
 
-SpendingData::~SpendingData() {
-}
+SpendingData::~SpendingData() { }
