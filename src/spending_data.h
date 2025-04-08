@@ -6,8 +6,13 @@
 
 class Expense {
 protected:
+    // How much money was spent
     int32_t amount;
+
+    // Name of the transaction
     std::string name;
+
+    // Description
     std::string description;
 
 public:
@@ -20,7 +25,6 @@ public:
     std::string get_name() const;
     std::string get_description() const;
 
-
     Expense operator = (const Expense &other);
     Expense operator = (Expense &&other);
 };
@@ -28,7 +32,6 @@ public:
 class SpendingData {
 protected:
     bt::Vector<Expense> expenses;
-
 
 public:
     SpendingData() = delete;

@@ -8,12 +8,18 @@ class Sql {
 private:
     sqlite3 *sql;
     // To prevent repeated allocation
+    // Must be char* because sql wants it like that
     char *sql_query = new char[0xFF];
 
 public:
     Sql() = delete;
     Sql(const std::string &filename);
+
+    // SELECT * FROM Expenses;
     bt::Vector<Expense> get_all_expenses();
+
+    // INSERT INTO Expenses
     void insert_expense(const Expense&);
+
     ~Sql();
 };

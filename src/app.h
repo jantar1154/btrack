@@ -5,4 +5,5 @@
 
 using display::CursesSubsystem;
 
-void show_spending(CursesSubsystem&, SpendingData&);
+// Shows data from database
+size_t show_spending(CursesSubsystem&, SpendingData&);

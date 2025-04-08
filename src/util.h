@@ -27,6 +27,9 @@ public:
     Vector(const Vector &other);
     Vector(Vector &&other);
 
+    T *begin();
+    T *end();
+
     void add(const T&);
     void add(T&&);
     std::optional<T> get(size_t) const;
@@ -35,6 +38,7 @@ public:
     Vector operator = (const Vector &);
 }; // Vector
 
+// Functions must be in .h because they are templated
 template <typename T>
 Vector<T>::Vector() { items = allocator.allocate(max_size); }
 
@@ -43,7 +47,7 @@ Vector<T>::Vector(Vector &&other) {
     allocator = other.allocator;
     size = other.size;
     max_size = other.max_size;
-    items = other.items;
+    items = other.items; // Moves
 }
 
 template <typename T>
@@ -56,6 +60,16 @@ Vector<T>::Vector(const Vector &other) {
 
 template <typename T>
 Vector<T>::~Vector() { allocator.deallocate(items, max_size); }
+
+template <typename T>
+T *Vector<T>::begin() {
+    return items;
+}
+
+template <typename T>
+T *Vector<T>::end() {
+    return items + size;
+}
 
 template <typename T>
 void Vector<T>::add(const T &item) {
