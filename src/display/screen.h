@@ -43,6 +43,9 @@ public:
     // Changes text content
     void set_text_content(const std::string &content);
 
+    // Return text content
+    std::string get_text_content() const;
+
     // Clears the screen, but keeps the title and border
     void clear() const;
 

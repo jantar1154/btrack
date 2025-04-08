@@ -53,6 +53,10 @@ void Screen::set_text_content(const std::string &content) {
     text_content = content;
 }
 
+std::string Screen::get_text_content() const {
+    return text_content;
+}
+
 void Screen::clear() const {
     wclear(window);
     wrefresh(window);
