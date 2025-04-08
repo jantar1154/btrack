@@ -21,10 +21,10 @@ int main() {
     // return 1: program continues
     // return 0: program halts
     main_menu.add_item("Show spending", [&s, &sd]() -> size_t { return show_spending(s, sd); });
-    main_menu.add_item("Add a record", [s]() -> size_t { return 1; });
-    main_menu.add_item("Edit records", [s]() -> size_t { return 1; });
-    main_menu.add_item("Visualise spending", [s]() -> size_t { return 1; });
-    main_menu.add_item("Weekly report", [s]() -> size_t { return 1; });
+    main_menu.add_item("Add a record", [&s]() -> size_t { return 1; });
+    main_menu.add_item("Edit records", [&s]() -> size_t { return 1; });
+    main_menu.add_item("Visualise spending", [&s]() -> size_t { return 1; });
+    main_menu.add_item("Weekly report", [&s]() -> size_t { return 1; });
     main_menu.add_item("Save changes and exit", []() { return 0; });
 
     // Render submenu buttons
