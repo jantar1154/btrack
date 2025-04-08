@@ -40,4 +40,7 @@ public:
 
     // TODO
     void save() const;
+
+    // returns non modifiable vector of expenses
+    const bt::Vector<Expense>& get_expenses() const;
 };

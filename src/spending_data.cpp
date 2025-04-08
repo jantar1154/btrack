@@ -28,6 +28,10 @@ string Expense::get_description() const { return description; }
 // TODO
 void SpendingData::save() const {}
 
+const bt::Vector<Expense>& SpendingData::get_expenses() const {
+    return expenses;
+}
+
 SpendingData::SpendingData(const std::string &filename) {
     Sql sql(filename);
     // Populate expenses with SELECT
