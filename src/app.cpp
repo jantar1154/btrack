@@ -2,7 +2,13 @@
 #include "display/screen.h"
 #include "spending_data.h"
 
+#include <algorithm>
 #include <ncurses.h>
+#include <sstream>
+
+#include <iostream>
+
+using std::begin, std::end;
 
 using display::Screen, display::PosSize;
 size_t show_spending(CursesSubsystem &s, SpendingData &spending_data) {
@@ -13,7 +19,20 @@ size_t show_spending(CursesSubsystem &s, SpendingData &spending_data) {
     // Fullscreen
     // TODO: function for fullscreen (arg screen)
     const PosSize pos {maxx - 1, maxy - 1, 1, 1};
-    const Screen scr { pos, "Spending" };
+    Screen scr { pos, "Spending" };
+    scr.render();
+
+    // Populate menu: append to text content new line (new expense)
+    std::stringstream content;
+    content << scr.get_text_content();
+    std::vector<Expense> exp_vec { spending_data.get_expenses() };
+
+    std::for_each(begin(exp_vec), end(exp_vec), [&content](Expense ex) {
+        content << "[ " << ex.get_name() << " ] " << ex.get_amount() << " Kc\n ";
+    });
+
+    scr.set_text_content(content.str());
+    // scr.set_text_content(std::to_string(exp_vec.size()));
     scr.render();
 
     char key;
@@ -24,8 +43,6 @@ size_t show_spending(CursesSubsystem &s, SpendingData &spending_data) {
                 return 1; // Program will continue
 
             case 'l': // Next page
-            case 'h': // Go up
-            case 'j': // Go down
             case 'k': // Previous page
                 break; // Break from switch
         }

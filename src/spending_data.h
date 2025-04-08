@@ -31,7 +31,7 @@ public:
 
 class SpendingData {
 protected:
-    bt::Vector<Expense> expenses;
+    std::vector<Expense> expenses;
 
 public:
     SpendingData() = delete;
@@ -42,5 +42,5 @@ public:
     void save() const;
 
     // returns non modifiable vector of expenses
-    const bt::Vector<Expense>& get_expenses() const;
+    std::vector<Expense> get_expenses() const;
 };

@@ -25,7 +25,7 @@ protected:
     // Renders the screen title
     void render_name() const;
     // Renders the screen content
-    void render_text(const Vec2D<int> &xy, const std::string &text) const;
+    void render_text(const bt::Vec2D<int> &xy, const std::string &text) const;
 
 public:
     Screen(const PosSize &pos, const std::string &name, const std::string &text_content);

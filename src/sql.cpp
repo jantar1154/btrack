@@ -1,6 +1,5 @@
 #include "sql.h"
 #include "spending_data.h"
-#include "util.h"
 #include <cstring>
 #include <sqlite3.h>
 #include <iostream>
@@ -24,19 +23,19 @@ Sql::Sql(const std::string &filename) {
 }
 
 static int callback(void *exp, int argc, char **argv, char **colname) {
-    bt::Vector<Expense> *expenses = static_cast<bt::Vector<Expense>*>(exp);
+    std::vector<Expense> *expenses = static_cast<std::vector<Expense>*>(exp);
     // exit(69);
     for (int i = 0; i < argc; i += 4) {
         int32_t amount = static_cast<int32_t> (atoi(argv[i + 1]));
         std::string name = argv[i + 2];
         std::string description = argv[i + 3];
-        expenses->add(Expense{amount, name, description});
+        expenses->emplace_back(amount, name, description);
     }
     return SQLITE_OK;
 }
 
-bt::Vector<Expense> Sql::get_all_expenses() {
-    bt::Vector<Expense> expenses;
+std::vector<Expense> Sql::get_all_expenses() {
+    std::vector<Expense> expenses;
     strcpy(sql_query, "SELECT * FROM Expenses;");
     char *errmsg;
 

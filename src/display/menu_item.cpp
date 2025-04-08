@@ -10,16 +10,16 @@ MenuItem::MenuItem(std::function<size_t ()> function, const std::string &text, i
     const int y = (index * 2) + 3;
     this->window = newwin(1, width, y, 1);
 }
-    
+
 void MenuItem::focus()  {
     this->focused = true;
     render();
-}   
-   
+}
+
 void MenuItem::unfocus() {
     this->focused = false;
     render();
-} 
+}
 
 std::function<size_t ()> MenuItem::on_enter() const {
     return this->function;

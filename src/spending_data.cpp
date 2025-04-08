@@ -2,6 +2,8 @@
 #include "util.h"
 #include "sql.h"
 
+#include <iostream>
+
 using std::string;
 
 Expense::Expense(int32_t amount, const string &name, const string &description):
@@ -28,7 +30,7 @@ string Expense::get_description() const { return description; }
 // TODO
 void SpendingData::save() const {}
 
-const bt::Vector<Expense>& SpendingData::get_expenses() const {
+std::vector<Expense> SpendingData::get_expenses() const {
     return expenses;
 }
 
@@ -36,6 +38,7 @@ SpendingData::SpendingData(const std::string &filename) {
     Sql sql(filename);
     // Populate expenses with SELECT
     expenses = sql.get_all_expenses();
+    std::cerr << "SIZE: " << expenses.size() << std::endl;
 }
 
 Expense Expense::operator = (const Expense &other) { return Expense { other }; }

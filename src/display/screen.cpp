@@ -2,6 +2,7 @@
 #include <ncurses.h>
 
 using namespace display;
+using bt::Vec2D;
 /*     PRIVATE     */
 void Screen::render_text(const Vec2D<int> &xy, const std::string &text) const {
     wmove(window, xy.y, xy.x);

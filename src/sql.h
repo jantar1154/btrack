@@ -16,7 +16,7 @@ public:
     Sql(const std::string &filename);
 
     // SELECT * FROM Expenses;
-    bt::Vector<Expense> get_all_expenses();
+    std::vector<Expense> get_all_expenses();
 
     // INSERT INTO Expenses
     void insert_expense(const Expense&);
