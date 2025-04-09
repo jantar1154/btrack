@@ -25,6 +25,9 @@ size_t show_spending(CursesSubsystem &s, SpendingData &spending_data) {
     // Populate menu: append to text content new line (new expense)
     std::stringstream content;
     content << scr.get_text_content();
+
+    // height - borders top, bottom - title
+    const size_t max_items = maxy - 2 - 1;
     std::vector<Expense> exp_vec { spending_data.get_expenses() };
 
     std::for_each(begin(exp_vec), end(exp_vec), [&content](Expense ex) {
