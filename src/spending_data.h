@@ -6,6 +6,8 @@
 
 class Expense {
 protected:
+    size_t id;
+
     // How much money was spent
     int32_t amount;
 
@@ -15,15 +17,19 @@ protected:
     // Description
     std::string description;
 
+    bt::Datetime datetime;
+
 public:
     Expense() = delete;
-    Expense(int32_t, const std::string&, const std::string&);
+    explicit Expense(size_t, int32_t, const std::string&, const std::string&, const bt::Datetime&);
     Expense(const Expense &other);
     Expense(Expense &&other);
 
+    size_t get_id() const;
     int32_t get_amount() const;
     std::string get_name() const;
     std::string get_description() const;
+    bt::Datetime get_datetime() const;
 
     Expense operator = (const Expense &other);
     Expense operator = (Expense &&other);

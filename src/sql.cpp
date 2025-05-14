@@ -1,5 +1,6 @@
 #include "sql.h"
 #include "spending_data.h"
+#include "util.h"
 #include <cstring>
 #include <sqlite3.h>
 #include <iostream>
@@ -11,25 +12,29 @@ Sql::Sql(const std::string &filename) {
         "id INTEGER PRIMARY KEY AUTOINCREMENT, "
         "amount INTEGER NOT NULL, "
         "name TEXT NOT NULL, "
-        "description TEXT NOT NULL"
+        "description TEXT NOT NULL, "
+        "datetime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP"
         ");");
     char *error_msg;
     status = sqlite3_exec(sql, sql_query, nullptr, 0, &error_msg);
 
     if (status != SQLITE_OK) {
-        std::cerr << "Error while creating table " << filename << std::endl;
+        std::cerr << "Error while creating table " << filename << error_msg << std::endl;
         sqlite3_free(error_msg);
+        exit(1);
     }
 }
 
 static int callback(void *exp, int argc, char **argv, char **colname) {
     std::vector<Expense> *expenses = static_cast<std::vector<Expense>*>(exp);
     // exit(69);
-    for (int i = 0; i < argc; i += 4) {
+    for (int i = 0; i < argc; i += 5) {
+        size_t id = static_cast<size_t> (atoi(argv[i + 0]));
         int32_t amount = static_cast<int32_t> (atoi(argv[i + 1]));
         std::string name = argv[i + 2];
         std::string description = argv[i + 3];
-        expenses->emplace_back(amount, name, description);
+        bt::Datetime datetime = bt::Datetime::from_iso8601({argv[i + 4]});
+        expenses->emplace_back(id, amount, name, description, datetime);
     }
     return SQLITE_OK;
 }
@@ -41,6 +46,8 @@ std::vector<Expense> Sql::get_all_expenses() {
 
     // Callback gets called for every row
     sqlite3_exec(sql, sql_query, callback, &expenses, &errmsg);
+
+    free(errmsg);
 
     return expenses;
 }

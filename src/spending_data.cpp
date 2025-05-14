@@ -6,26 +6,36 @@
 
 using std::string;
 
-Expense::Expense(int32_t amount, const string &name, const string &description):
-    amount(amount),
-    name(name),
-    description(description) { }
+Expense::Expense(size_t id, int32_t amount, const string& name, const string& description, const bt::Datetime& datetime):
+    id {id},
+    amount {amount},
+    name {name},
+    description {description},
+    datetime {datetime} { }
 
-Expense::Expense(const Expense &other) {
-    amount = other.amount;
-    name = other.name;
-    description = other.description;
-}
+Expense::Expense(const Expense& other):
+    Expense (
+        other.id,
+        other.amount,
+        other.name,
+        other.description,
+        other.datetime
+    ) { }
 
-Expense::Expense(Expense &&other) {
-    amount = other.amount;
-    name = other.name;
-    description = other.description;
-}
+Expense::Expense(Expense&& other):
+    Expense (
+        std::move(other.id),
+        std::move(other.amount),
+        std::move(other.name),
+        std::move(other.description),
+        std::move(other.datetime)
+    ) {}
 
+size_t Expense::get_id() const { return id; }
 int32_t Expense::get_amount() const { return amount; }
 string Expense::get_name() const { return name; }
 string Expense::get_description() const { return description; }
+bt::Datetime Expense::get_datetime() const { return datetime; }
 
 // TODO
 void SpendingData::save() const {}

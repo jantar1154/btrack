@@ -27,11 +27,13 @@ size_t show_spending(CursesSubsystem &s, SpendingData &spending_data) {
     content << scr.get_text_content();
 
     // height - borders top, bottom - title
-    const size_t max_items = maxy - 2 - 1;
-    std::vector<Expense> exp_vec { spending_data.get_expenses() };
+    // const size_t max_items = maxy - 2 - 1;
+    const std::vector<Expense> exp_vec { spending_data.get_expenses() };
 
-    std::for_each(begin(exp_vec), end(exp_vec), [&content](Expense ex) {
-        content << "[ " << ex.get_name() << " ] " << ex.get_amount() << " Kc\n ";
+    std::for_each(begin(exp_vec), end(exp_vec), [&content](const Expense& ex) {
+        content << ex.get_datetime().to_iso8061()
+        << ": [ " << ex.get_name() << " ] "
+        << ex.get_amount() << " Kc\n ";
     });
 
     scr.set_text_content(content.str());
